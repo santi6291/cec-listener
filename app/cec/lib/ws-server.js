@@ -1,6 +1,8 @@
-// const cecOpcode = require( 'node-cec' ).CEC.Opcode;
-class wsServer {
+const Helper = require('../../shared');
+
+class wsServer extends Helper{
 	constructor(){	
+		super('wsServer');
 		this.acceptedCon = 'cec-protocol';
 		this.connection;
 		this.config = {};
@@ -11,10 +13,6 @@ class wsServer {
 		// *always* verify the connection's origin and decide whether or not 
 		// to accept it. 
 		this.config.autoAcceptConnections = false;
-	}
-
-	log(msg){
-		console.log(`${new Date()} - wsServer - ${msg}`);
 	}
 
 	// This is the only fucntion related to http server and not websocket
