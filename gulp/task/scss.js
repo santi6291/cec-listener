@@ -15,6 +15,10 @@ let scssConfig = {}
 scssConfig.outputStyle = argv.production ? 'compressed' : 'expanded'
 scssConfig.sourceMapEmbed = argv.production ? false : true;
 
+scssConfig.includePaths = [
+    '../node_modules/',
+]
+
 const prefixConf = {
     browsers: [
     'last 2 versions',
