@@ -1,0 +1,19 @@
+$global-flexbox: true;
+
+@import 'foundation-sites/scss/foundation';
+
+@include foundation-flex-grid;
+@include foundation-flex-classes;
+@include foundation-typography;
+@include foundation-thumbnail;
+@include foundation-button
+@include foundation-button-group
+
+*{
+	box-sizing: border-box;
+}
+
+body, html {
+	margin:0;
+    max-width: 100%;
+}
