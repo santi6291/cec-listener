@@ -1,5 +1,5 @@
 {
-  "name": "cec-listener",
+  "name": "tv-remote",
   "version": "0.0.1",
   "description": "cec sync with firebase",
   "main": "index.js",
@@ -8,19 +8,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/santi6291/cec-listener.git"
+    "url": "git+https://github.com/santi6291/tv-remote.git"
   },
   "keywords": [
     "cec",
     "cec-client",
-    "firebase",
     "websocket",
     "home-automation"
   ],
   "author": "Santiago J Sosa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/santi6291/cec-listener/issues"
+    "url": "https://github.com/santi6291/tv-remote/issues"
   },
-  "homepage": "https://github.com/santi6291/cec-listener#readme"
+  "homepage": "https://github.com/santi6291/tv-remote#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.14.1",
+    "foundation-sites": "^6.3.0",
+    "hbs": "^4.0.1",
+    "node-cec": "^0.1.2",
+    "websocket": "^1.0.24"
+  }
 }
