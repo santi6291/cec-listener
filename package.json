@@ -1,0 +1,26 @@
+{
+  "name": "cec-listener",
+  "version": "0.0.1",
+  "description": "cec sync with firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santi6291/cec-listener.git"
+  },
+  "keywords": [
+    "cec",
+    "cec-client",
+    "firebase",
+    "websocket",
+    "home-automation"
+  ],
+  "author": "Santiago J Sosa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/santi6291/cec-listener/issues"
+  },
+  "homepage": "https://github.com/santi6291/cec-listener#readme"
+}
