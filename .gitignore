@@ -39,3 +39,4 @@ jspm_packages
 /app/web-app/public/js/app.js.map
 /app/web-app/public/js/app.js
 /app/web-app/public/css/app.css
+/sftp-config.json
