@@ -1,9 +1,12 @@
-class CecClient {
+const Helper = require('../../shared');
+
+class CecClient extends Helper {
 	// -------------------------------------------------------------------------- //
 	// Example: basic.js
 	// For more cec-events: http://www.cec-o-matic.com/
 	// -------------------------------------------------------------------------- //
 	constructor(){
+		super('cec')
 		const nodecec = require( 'node-cec' );
 		const NodeCec = nodecec.NodeCec;
 		
@@ -24,11 +27,13 @@ class CecClient {
 		//- START CEC CLIENT
 		cec.start().apply(this, this.cecStart);
 	}
+	
 	// -------------------------------------------------------------------------- //
 	//- KILL CEC-CLIENT PROCESS ON EXIT
 	killOnExit(){
-		process.on( 'SIGINT', () =>this.killCec());
+		process.on('SIGINT', () =>this.killCec());
 	}
+
 	killCec(){
 		if ( this.cec != null ) {
 		  this.cec.stop();
@@ -37,8 +42,19 @@ class CecClient {
 	}
 
 	onReady(client){
-		console.log( ' -- READY -- ' );
+		this.log( ' -- READY -- ' );
 		this.client = client;
-		this.client.sendCommand( 0xf0, CEC.Opcode.GIVE_DEVICE_POWER_STATUS );
+		this.client.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 	}
+
+	bindEvents(){
+		const OpcodeKeys = Object.keys(CEC.Opcode)
+		
+	}
+
+	execAction(){
+
+	}
+
 }
+module.exports = new CecClient();
