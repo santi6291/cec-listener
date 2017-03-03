@@ -14,7 +14,7 @@ server-dev:
 
 install-cec:
 	sudo apt-get update
-	sudo apt-get install cmake libudev-dev libxrandr-dev python-dev swig
+	sudo apt-get install -y cmake libudev-dev libxrandr-dev python-dev swig
 	cd
 	git clone https://github.com/Pulse-Eight/platform.git
 	mkdir platform/build
