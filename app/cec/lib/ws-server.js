@@ -1,5 +1,5 @@
 const Helper = require('../../shared');
-
+const cecClient = require('./cec-commands');
 class wsServer extends Helper{
 	constructor(){	
 		super('wsServer');
@@ -45,13 +45,22 @@ class wsServer extends Helper{
 		}
 	}
 
+	cecEvents(){
+		const OpcodeKeys = Object.keys(cecClient.cectypes.Opcode)
+		for (let i=0; i < OpcodeKeys.length; i++) {
+			cecClient.cec.on( OpcodeKeys[i], function () {
+				this.connection.sendUTF(OpcodeKeys[i]);
+			})
+		}
+	}
+
 	handleRequest(request){
 		if (!this.originIsAllowed(request.origin)) {
 		  return this.rejectRequest(request);
 		}
 
 		this.connection = request.accept(this.acceptedCon, request.origin);
-		this.log(`${request.origin} accepted.`)
+		this.log(`${request.origin} accepted.`);
 		
 		// Handle connection message
 		this.connection.on('message', (message) => this.onMessage(message));
