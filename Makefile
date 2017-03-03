@@ -13,16 +13,16 @@ server-dev:
 	@${_bin}nodemon index.js
 
 install-cec:
-	sudo apt-get update \
-	sudo apt-get install -y cmake libudev-dev libxrandr-dev python-dev swig \
-	cd \
+	sudo apt-get update
+	sudo apt-get install -y cmake libudev-dev libxrandr-dev python-dev swig
+	cd ${HOME}\
 	git clone https://github.com/Pulse-Eight/platform.git \
 	mkdir platform/build \
 	cd platform/build \
 	cmake .. \
 	make \
 	sudo make install \
-	cd \
+	cd ${HOME}\
 	git clone https://github.com/Pulse-Eight/libcec.git \
 	mkdir libcec/build \
 	cd libcec/build \
