@@ -1,4 +1,16 @@
-_bin = ./node_modules/.bin
+_bin = ./node_modules/.bin/
+
+install:
+	npm install
+	cp .env-example .env
+
+server-prod:
+	# init forever
+	@${_bin}forever start index.js
+
+server-dev:
+	# init nodemon
+	@${_bin}nodemon index.js
 
 install-cec:
 	sudo apt-get update
