@@ -36,4 +36,4 @@ cec-install-libcec:
 	cd ${HOME}/libcec/build && sudo make install
 	cd ${HOME}/libcec/build && sudo ldconfig
 
-install-cec: cec-install-dep cec-install-platform cec-install-libcec
+install-cec: cec-install-platform cec-install-libcec
