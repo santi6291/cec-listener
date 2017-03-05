@@ -7,7 +7,7 @@ class CECcontroller extends Helper {
 	// -------------------------------------------------------------------------- //
 	constructor(){
 		super('cec')
-		const nodecec = require( 'node-cec' );
+		const nodecec = require('node-cec');
 		const NodeCec = nodecec.NodeCec;
 		
 		this.cectypes = nodecec.CEC;
