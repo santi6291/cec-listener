@@ -7,8 +7,9 @@ class Helper extends EventEmitter{
 		this._projectRoot = this.setProjectRoot();
 	}
 
-	log(msg) {
-		return console.log(`${new Date()} - ${this._appName} - ${msg}`);
+	log(...msg) {
+		msg.unshift(`[${new Date()}] ${this._appName} - `)
+		return console.log.apply(null, msg);
 	}
 
 	setProjectRoot(){
