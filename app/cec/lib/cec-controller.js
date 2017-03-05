@@ -49,7 +49,7 @@ class CECcontroller extends Helper {
 		this.log('onReady');
 		let response  = this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 		this.cec.client.stdout.once('data', (result)=>{
-			this.log(result)
+			this.log(result.toString())
 		});
 	}
 
