@@ -25,7 +25,7 @@ deploy-pull:
 deploy-build:
 	ssh pi@192.168.1.4 'cd tv-remote && make gulp-build';
 
-deploy: deploy-pull deploy-build
+deploy: deploy-pull #deploy-build
 	
 
 ############################
