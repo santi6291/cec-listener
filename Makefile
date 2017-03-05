@@ -1,4 +1,4 @@
-_bin = /node_modules/.bin/
+_bin = ./node_modules/.bin/
 _gulp = ../node_modules/.bin/gulp
 
 gulp-watch:
