@@ -3,11 +3,18 @@ require('dotenv').config();
 const wsCtrl = require('./lib/ws-controller');
 const cecCtrl = require('./lib/cec-controller');
 
+
+wsCtrl.on('onConnectionAccept', ()=>{
+	wsCtrl.log('onConnectionAccept')
+	cecCtrl.powerStatus();
+});
+
 // Handle client request for cec command
 wsCtrl.on('onConnectionMessage', (message)=>{
 	wsCtrl.log('onConnectionMessage')
 	wsCtrl.server.broadcastUTF(message.utf8Data)
 });
+
 
 // broadcast route change
 cecCtrl.on('routeChange', (fromSource, toSource)=>{
