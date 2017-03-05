@@ -34,7 +34,7 @@ class CECcontroller extends Helper {
 		// -m  = start in monitor-mode
 		// -d8 = set log level to 8 (=TRAFFIC) (-d 8)
 		// -br = logical address set to `recording device`
-		this.cec.start('cec-client', '-m', '-d', '8', '-b', 'r')
+		// this.cec.start('cec-client', '-m', '-d', '8', '-b', 'r')
 		this.cecSingle.start('cec-client', '-d', '1', '-s')
 	}
 	
