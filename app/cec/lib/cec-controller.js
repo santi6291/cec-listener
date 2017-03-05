@@ -10,20 +10,18 @@ class CECcontroller extends Helper {
 		super('cec')
 		const nodecec = require('node-cec');
 		const NodeCec = nodecec.NodeCec;
+		this.scanInterval;
+		this.busInfo;
 		
 		this.cectypes = nodecec.CEC;
-		
 		this.cec = new NodeCec('node-cec-monitor');
-		// this.device = []
 		this.status = {
 			on: false,
-			source: 0,
+			devices: [],
 		}
 	
-		// -------------------------------------------------------------------------- //
-		//- CEC EVENT HANDLING
-		this.cec.once( 'ready', (client)=>this.onReady(client));
-		this.initBind();
+		// cec ready event
+		this.cec.once('ready', (client)=>this.onReady(client));
 		
 		// -------------------------------------------------------------------------- //
 		// -m  = start in monitor-mode
@@ -48,33 +46,60 @@ class CECcontroller extends Helper {
 
 	onReady(client){
 		this.log('onReady');
-		// @TODO
-		// send scan and get hdmi names
-		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
-		this.getDevices();
-		// this.cec.client.stdout.on('data', (result)=>{
-		// 	this.log('data',result.toString())
-		// });
-	}
-
-	getDevices(){
-		this.togglePower()
-		// this.log('getDevices');
-		// this.cecSingle.start('cec-client', '-d', '1', '-s')
 		
-		// this.cecSingle.on('ready', (client)=>this.cecSingle.send('scan'))
+		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
+		
+		this.initBind();
 
-		// this.cecSingle.on('line', (line)=>{
-		// 	this.log('cecSingle - ',line.toString())
-		// })
+		// scan devices every 30 minutes
+		this.scanInterval = setInterval(()=>this.cec.send('scan'), 1.8e+9);
 	}
 
 	initBind(){
 		this.log('initBind');
-		// this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.onReportPowerStatus(packet, status));
-		// this.cec.on('ACTIVE_SOURCE', (packet, source) => this.onActiveSource(packet, source));
-		// this.cec.on('STANDBY', (packet, source) => this.onStandby(packet, source));
-		// this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.onRoutingChange(fromSource, toSource));
+		// stdoud line event
+		this.cec.on('line', (lineBuffer)=>this.onLine(lineBuffer));
+		this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.onReportPowerStatus(packet, status));
+		this.cec.on('ACTIVE_SOURCE', (packet, source) => this.onActiveSource(packet, source));
+		this.cec.on('STANDBY', (packet, source) => this.onStandby(packet, source));
+		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.onRoutingChange(fromSource, toSource));
+	}
+
+	onLine(lineBuffer){
+		let line = lineBuffer.toString();
+		// fucntion below scan stdout 
+		this.scanDevices(line);
+	}
+
+	scanDevices(line){
+		this.busInfo = (/CEC bus information/.test(line)) ? 0 : this.busInfo;
+
+		if (typeof this.busInfo != 'undefined') {
+			this.storeDeviceLine(line)
+		}
+
+		if (/currently active source:/.test(line)) {
+			this.log('Stop Device Scan');
+			this.busInfo = undefined;
+		}
+	}
+
+	storeDeviceLine(line){
+		let deviceDetails = ['address','active source','vendor','osd string','CEC version','power status','language'];
+		
+		deviceDetails.forEach((detail, index)=>{
+			// append Object to devices array 
+			let regex = new RegExp(`^${detail}:\\s(.*)$`);
+			let match = line.match(regex);
+			let detaiLKey = detail.replace(/ /g, '_');
+
+			if (match) {
+				this.status.devices[this.busInfo] = this.status.devices[this.busInfo] || {};
+				this.status.devices[this.busInfo][detaiLKey] = match[1].trim();
+				this.busInfo = (detaiLKey == 'language') ? this.busInfo+1 : this.busInfo;
+				return false;
+			}
+		})
 	}
 
 	onStandby(packet, source){
@@ -108,7 +133,6 @@ class CECcontroller extends Helper {
 	togglePower(){
 		this.log('togglePower');
 		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.IMAGE_VIEW_ON;
-		console.log(command)
 		return this.cec.sendCommand(0xf0, command);
 	}
 }
