@@ -5,7 +5,7 @@
 // For more cec-events: http://www.cec-o-matic.com/
 // -------------------------------------------------------------------------- //
 
-var nodecec = require( '../' );
+var nodecec = require('node-cec');
 
 var NodeCec = nodecec.NodeCec;
 var CEC     = nodecec.CEC;
