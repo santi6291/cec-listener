@@ -22,7 +22,7 @@ class CECcontroller extends Helper {
 		// -------------------------------------------------------------------------- //
 		//- CEC EVENT HANDLING
 		this.cec.once( 'ready', (client)=>this.onReady(client));
-		this.routeChange();
+		this.initBind();
 		
 		// -------------------------------------------------------------------------- //
 		// -m  = start in monitor-mode
@@ -50,9 +50,10 @@ class CECcontroller extends Helper {
 		this.client.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 	}
 
-	powerStatus(){
-		this.log('powerStatus');
+	initBind(){
 		this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
+		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource));
+		this.cec.on('ACTIVE_SOURCE', (packet, source) => this.powerStatusCallback(packet, source));
 	}
 
 	powerStatusCallback(packet, status){
@@ -62,17 +63,9 @@ class CECcontroller extends Helper {
 		for (var i = keys.length - 1; i >= 0; i--) {
 			if (this.cectypes.PowerStatus[keys[i]] == status) {
 				this.emit('powerStatus', keys[i])
-				this.cec.off('REPORT_POWER_STATUS');
 				break;
 			}
 		}
-	}
-	
-	routeChange(){
-		this.cec.on( 'ROUTING_CHANGE', (packet, fromSource, toSource)=>{
-			this.log('ROUTING_CHANGE')
-			this.emit('routeChange', fromSource, toSource)
-		});
 	}
 }
 module.exports = new CECcontroller();
