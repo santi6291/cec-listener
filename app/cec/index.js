@@ -7,13 +7,6 @@ const cecCtrl = require('./lib/cec-controller');
 wsCtrl.on('onConnectionAccept', ()=>{
 	wsCtrl.log('onConnectionAccept')
 	wsCtrl.server.broadcastUTF(JSON.stringify(cecCtrl.status))
-
-	cecCtrl.cec.once('REPORT_POWER_STATUS', (packet, status) => {
-		cecCtrl.log('REPORT_POWER_STATUS', 'once')
-	});
-	cecCtrl.cec.on('REPORT_POWER_STATUS', (packet, status) => {
-		cecCtrl.log('REPORT_POWER_STATUS', 'on')
-	});
 	// this.client.sendCommand('REPORT_POWER_STATUS');
 });
 
