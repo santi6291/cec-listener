@@ -14,11 +14,25 @@ class buttonActions{
 	}
 
 	onMessage(event){
-		console.log('onMessage', event)
+		let data;
+		try{
+			data = JSON.parse(event.data)
+		}catch(e){
+			data = event.data;
+		}
+
+		console.log('onMessage', data)
 	}
 
 	onOpen(event){
-		console.log('onOpen', event)
+		let data;
+		try{
+			data = JSON.parse(event.data)
+		}catch(e){
+			data = event.data;
+		}
+
+		console.log('onOpen', data)
 	}
 
 	bindButtons(){
