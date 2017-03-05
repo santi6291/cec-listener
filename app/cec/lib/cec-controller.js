@@ -12,7 +12,7 @@ class CECcontroller extends Helper {
 		const NodeCec = nodecec.NodeCec;
 		
 		this.cectypes = nodecec.CEC;
-		this.cec = new NodeCec( 'node-cec-monitor' );
+		this.cec = new NodeCec('node-cec-monitor');
 		this.client;
 		this.status = {
 			on: false,

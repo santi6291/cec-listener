@@ -3,25 +3,27 @@ require('dotenv').config();
 const wsCtrl = require('./lib/ws-controller');
 const cecCtrl = require('./lib/cec-controller');
 
-
 wsCtrl.on('onConnectionAccept', ()=>{
-	wsCtrl.log('onConnectionAccept')
-	wsCtrl.server.broadcastUTF(JSON.stringify(cecCtrl.status))
-	// this.client.sendCommand('REPORT_POWER_STATUS');
+	wsCtrl.log('onConnectionAccept');
+	wsCtrl.server.broadcast(cecCtrl.status)
 });
 
 // Handle client request for cec command
 wsCtrl.on('onConnectionMessage', (message)=>{
 	wsCtrl.log('onConnectionMessage')
-	wsCtrl.server.broadcastUTF(message.utf8Data)
+	wsCtrl.server.broadcast(message.utf8Data)
 });
 
+cecCtrl.on('statusUpdate', ()=>{
+	cecCtrl.log('statusUpdate')
+	wsCtrl.server.broadcast(cecCtrl.status)
+})
 
 // broadcast route change
 cecCtrl.on('routeChange', (fromSource, toSource)=>{
 	cecCtrl.log('routeChange');
 	let msg = JSON.stringify({fromSource, toSource});
-	wsCtrl.server.broadcastUTF(msg)
+	wsCtrl.server.broadcast(msg)
 });
 
  
