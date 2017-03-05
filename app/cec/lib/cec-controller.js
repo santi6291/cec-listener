@@ -14,11 +14,6 @@ class CECcontroller extends Helper {
 		this.cectypes = nodecec.CEC;
 		
 		this.cec = new NodeCec('node-cec-monitor');
-		
-		this.cecSingle = new NodeCec('node-cec-monitor');
-		this.getDevices();
-
-		this.client;
 		// this.device = []
 		this.status = {
 			on: false,
@@ -34,8 +29,7 @@ class CECcontroller extends Helper {
 		// -m  = start in monitor-mode
 		// -d8 = set log level to 8 (=TRAFFIC) (-d 8)
 		// -br = logical address set to `recording device`
-		// this.cec.start('cec-client', '-m', '-d', '8', '-b', 'r')
-		this.cecSingle.start('cec-client', '-m', '-s', '-d', '1')
+		this.cec.start('cec-client', '-m', '-d', '8', '-b', 'r')
 	}
 	
 	// -------------------------------------------------------------------------- //
@@ -57,21 +51,22 @@ class CECcontroller extends Helper {
 		// @TODO
 		// send scan and get hdmi names
 		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
-
+		this.getDevices();
 		// this.cec.client.stdout.on('data', (result)=>{
 		// 	this.log('data',result.toString())
 		// });
 	}
 
 	getDevices(){
-		this.log('getDevices');
-		this.cecSingle.start('cec-client', '-d', '1', '-s')
+		this.togglePower()
+		// this.log('getDevices');
+		// this.cecSingle.start('cec-client', '-d', '1', '-s')
 		
-		this.cecSingle.on('ready', (client)=>this.cecSingle.send('scan'))
+		// this.cecSingle.on('ready', (client)=>this.cecSingle.send('scan'))
 
-		this.cecSingle.on('line', (line)=>{
-			this.log('cecSingle - ',line.toString())
-		})
+		// this.cecSingle.on('line', (line)=>{
+		// 	this.log('cecSingle - ',line.toString())
+		// })
 	}
 
 	initBind(){
@@ -114,7 +109,7 @@ class CECcontroller extends Helper {
 		this.log('togglePower');
 		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.IMAGE_VIEW_ON;
 		console.log(command)
-		return this.client.sendCommand(0xf0, command);
+		return this.cec.sendCommand(0xf0, command);
 	}
 }
 module.exports = new CECcontroller();
