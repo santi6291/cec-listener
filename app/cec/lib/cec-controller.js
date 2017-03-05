@@ -51,20 +51,22 @@ class CECcontroller extends Helper {
 		// @TODO
 		// send scan and get hdmi names
 		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
-		// response.on('data')
-		this.cec.on('line', (line)=>{
-			let traffic = this.cec.processTraffic(line.toString());
-
-			this.log(traffic)
-		})
-		setTimeout(()=>{
-			this.log('setTimeout')
-			this.cec.send('scan');
-		}, 2000);
+		this.getDevices()
 
 		// this.cec.client.stdout.on('data', (result)=>{
 		// 	this.log('data',result.toString())
 		// });
+	}
+
+	getDevices(){
+		this.log('getDevices')
+		
+		this.cec.send('scan');
+		this.cec.on('line', (line)=>{
+			line.toString()
+
+			this.log(line.toString())
+		})
 	}
 
 	initBind(){
