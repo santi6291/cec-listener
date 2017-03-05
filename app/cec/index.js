@@ -12,8 +12,8 @@ cecCtrl.on('routeChange', (fromSource, toSource)=>{
 	wsCtrl.server.broadcastUTF(msg)
 });
 
-wsServer.config.httpServer = server;
-const wsInstance = new WebSocketServer(wsServer.config);
+// broadcast power status
+cecCtrl.on('powerStatus', (status)=>wsCtrl.server.broadcastUTF(status));
 
 // handle request
 wsInstance.on('request', (request)=>wsServer.handleRequest(request))
