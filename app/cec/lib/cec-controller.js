@@ -47,7 +47,7 @@ class CECcontroller extends Helper {
 
 	powerStatus(){
 		this.log('powerStatus');
-		this.cec.once( 'REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
+		this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
 	}
 
 	powerStatusCallback(packet, status){
@@ -57,6 +57,7 @@ class CECcontroller extends Helper {
 		for (var i = keys.length - 1; i >= 0; i--) {
 			if (this.cectypes.PowerStatus[keys[i]] == status) {
 				this.emit('powerStatus', keys[i])
+				this.cec.off('REPORT_POWER_STATUS');
 				break;
 			}
 		}
