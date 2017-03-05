@@ -1,6 +1,8 @@
+const EventEmitter = require('events');
 
-class Helper {
+class Helper extends EventEmitter{
 	constructor(appName){
+		super()
 		this._appName = appName;
 		this._projectRoot = this.setProjectRoot();
 	}
