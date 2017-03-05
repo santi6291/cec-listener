@@ -72,8 +72,8 @@ class CECcontroller extends Helper {
 
 	onReportPowerStatus(packet, status){
 		this.log('REPORT_POWER_STATUS', packet)
-		this.emit('reportPowerStatus', packet, source)
 		this.status.on = !Boolean(status);
+		this.emit('reportPowerStatus');
 	}
 }
 module.exports = new CECcontroller();
