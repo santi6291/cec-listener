@@ -47,14 +47,14 @@ class CECcontroller extends Helper {
 	}
 
 	powerStatus(){
-		cec.on( 'REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
+		this.cec.on( 'REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
 	}
 
 	powerStatusCallback(){
-		var keys = Object.keys( CEC.PowerStatus );
+		var keys = Object.keys( this.cectypes.PowerStatus );
 
 		for (var i = keys.length - 1; i >= 0; i--) {
-			if (CEC.PowerStatus[keys[i]] == status) {
+			if (this.cectypes.PowerStatus[keys[i]] == status) {
 				this.emit('powerStatus', keys[i])
 				break;
 			}
@@ -62,7 +62,7 @@ class CECcontroller extends Helper {
 	}
 	
 	routeChange(){
-		cec.on( 'ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource) );
+		this.cec.on( 'ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource) );
 	}
 }
 module.exports = new CECcontroller();
