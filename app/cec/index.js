@@ -5,7 +5,7 @@ const cecCtrl = require('./lib/cec-controller');
 
 wsCtrl.on('onConnectionAccept', ()=>{
 	wsCtrl.log('onConnectionAccept');
-	wsCtrl.broadcast(cecCtrl.status);
+	wsCtrl.broadcast('status',cecCtrl.status);
 });
 
 // Handle client request for cec command
@@ -16,14 +16,14 @@ wsCtrl.on('onConnectionMessage', (message)=>{
 
 cecCtrl.on('statusUpdate', ()=>{
 	cecCtrl.log('statusUpdate')
-	wsCtrl.broadcast(cecCtrl.status);
+	wsCtrl.broadcast('status',cecCtrl.status);
 })
 
 // broadcast route change
 cecCtrl.on('routeChange', (fromSource, toSource)=>{
 	cecCtrl.log('routeChange');
 	let msg = JSON.stringify({fromSource, toSource});
-	wsCtrl.broadcast(msg);
+	wsCtrl.broadcast('routeChange', msg);
 });
 
  

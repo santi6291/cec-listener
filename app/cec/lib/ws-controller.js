@@ -9,13 +9,8 @@ class websocketController extends Helper{
 		this.server = this.initServer();
 	}
 
-	broadcast(content){
-		let msg = content;
-		
-		if (content !== null && typeof content === 'object') {
-			msg = JSON.stringify(content);
-		}
-	
+	broadcast(type, data){
+		msg = JSON.stringify({type, data});
 		return this.server.broadcast(msg);
 	}
 	
