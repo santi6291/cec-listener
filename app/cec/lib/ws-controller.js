@@ -10,7 +10,7 @@ class websocketController extends Helper{
 	}
 
 	broadcast(type, data){
-		msg = JSON.stringify({type, data});
+		let msg = JSON.stringify({type, data});
 		return this.server.broadcast(msg);
 	}
 	
