@@ -47,7 +47,7 @@ class CECcontroller extends Helper {
 	}
 
 	powerStatus(){
-		this.cec.on( 'REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
+		this.cec.once( 'REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
 	}
 
 	powerStatusCallback(packet, status){
