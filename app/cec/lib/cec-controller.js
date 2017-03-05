@@ -84,9 +84,10 @@ class CECcontroller extends Helper {
 	}
 
 
-	eventStandby(){
-		this.log('eventStandby')
+	togglePower(){
+		this.log('togglePower');
 		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.POWER_ON_FUNCTION;
+		console.log(command)
 		return this.client.sendCommand(0xff, command);
 	}
 }

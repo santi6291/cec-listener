@@ -12,7 +12,7 @@ wsCtrl.on('onConnectionAccept', ()=>{
 wsCtrl.on('onConnectionMessage', (message)=>{
 	wsCtrl.log('onConnectionMessage')
 	if (message.utf8Data == 'toggle-power') {
-		cecCtrl.eventStandby()
+		cecCtrl.togglePower()
 	}
 	wsCtrl.broadcast(message.utf8Data);
 });
