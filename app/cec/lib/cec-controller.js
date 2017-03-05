@@ -17,7 +17,6 @@ class CECcontroller extends Helper {
 		// -------------------------------------------------------------------------- //
 		//- CEC EVENT HANDLING
 		this.cec.once( 'ready', (client)=>this.onReady(client));
-		this.powerStatus();
 		this.routeChange();
 		
 		// -------------------------------------------------------------------------- //
