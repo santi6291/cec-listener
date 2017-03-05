@@ -23,13 +23,6 @@ cecCtrl.on('routeChange', (fromSource, toSource)=>{
 	wsCtrl.server.broadcastUTF(msg)
 });
 
-// broadcast power status
-cecCtrl.on('powerStatus', (status)=>{
-	cecCtrl.log('powerStatus');
-	wsCtrl.server.broadcastUTF(status)
-});
-
-
 /* 
 @TODO maybe bind these event and execute whenever they happend
 const OpcodeKeys = Object.keys(cecCtrl.cectypes.Opcode)
