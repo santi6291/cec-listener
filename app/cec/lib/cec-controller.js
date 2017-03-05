@@ -57,7 +57,8 @@ class CECcontroller extends Helper {
 	}
 
 	powerStatusCallback(packet, status){
-		this.status.on = (status);
+		this.log('status', status)
+		this.status.on = Boolean(status);
 	}
 }
 module.exports = new CECcontroller();
