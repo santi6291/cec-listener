@@ -23,6 +23,13 @@ process.on( 'SIGINT', function() {
   process.exit();
 });
 
+// -------------------------------------------------------------------------- //
+//- START CEC CLIENT
+
+// -m  = start in monitor-mode
+// -d8 = set log level to 8 (=TRAFFIC) (-d 8)
+// -br = logical address set to `recording device`
+cec.start( 'cec-client', '-m', '-d', '8', '-b', 'r' );
 
 // -------------------------------------------------------------------------- //
 //- CEC EVENT HANDLING
@@ -48,11 +55,3 @@ cec.on( 'ROUTING_CHANGE', function(packet, fromSource, toSource) {
   console.log( 'Routing changed from ' + fromSource + ' to ' + toSource + '.' );
 });
 
-
-// -------------------------------------------------------------------------- //
-//- START CEC CLIENT
-
-// -m  = start in monitor-mode
-// -d8 = set log level to 8 (=TRAFFIC) (-d 8)
-// -br = logical address set to `recording device`
-cec.start( 'cec-client', '-m', '-d', '8', '-b', 'r' );
