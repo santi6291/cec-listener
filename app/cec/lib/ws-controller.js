@@ -63,8 +63,9 @@ class websocketController extends Helper{
 		  return this.rejectRequest(request);
 		}
 
-		// this.log(`${request.origin} accepted.`);
 		let connection = request.accept(this._config.allowedProtocol, request.origin);
+		this.log(`${request.origin} accepted.`);
+		this.emit('onConnectionAccept')
 
 		// Handle connection message
 		connection.on('message', (message) => this.emit('onConnectionMessage', message));
