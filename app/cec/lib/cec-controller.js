@@ -57,15 +57,7 @@ class CECcontroller extends Helper {
 	}
 
 	powerStatusCallback(packet, status){
-		this.log(status)
-		var keys = Object.keys( this.cectypes.PowerStatus );
-
-		for (var i = keys.length - 1; i >= 0; i--) {
-			if (this.cectypes.PowerStatus[keys[i]] == status) {
-				// this.status.on = (keys[i] == 'ON')?  true : false;
-				break;
-			}
-		}
+		this.status.on = (status);
 	}
 }
 module.exports = new CECcontroller();
