@@ -1,5 +1,11 @@
-_bin = ./node_modules/.bin/
-_bin=/bin
+_bin = /node_modules/.bin/
+_gulp = ../node_modules/.bin/gulp
+
+gulp-watch:
+	cd gulp && ${_gulp} watch
+
+gulp-build:
+	cd gulp && ${_gulp} --production
 
 install:
 	npm install
