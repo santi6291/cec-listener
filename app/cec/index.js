@@ -6,7 +6,7 @@ const cecCtrl = require('./lib/cec-controller');
 
 wsCtrl.on('onConnectionAccept', ()=>{
 	wsCtrl.log('onConnectionAccept')
-	cecCtrl.powerStatus();
+	wsCtrl.server.broadcastUTF(JSON.stringify(this.status), 'test')
 });
 
 // Handle client request for cec command
