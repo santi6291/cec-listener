@@ -2,7 +2,7 @@ class buttonActions{
 	constructor(){
 		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 		this.eventType = isMobile ? 'touchend' : 'click';
-		this.clientURL = `ws://${window.location.hostname}:8000`;
+		this.clientURL = `ws://casadev.net:8000`;
 		this.clientProtocol = 'cec-protocol';
 		
 		this.buttons = document.querySelectorAll('button');
