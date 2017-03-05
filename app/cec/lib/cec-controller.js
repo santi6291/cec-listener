@@ -48,7 +48,10 @@ class CECcontroller extends Helper {
 	onReady(client){
 		this.log('onReady');
 		this.client = client;
-		this.log(this.client.sendCommand(0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS))
+		let response  = this.client.sendCommand(0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS);
+		response.on("data", function(data){
+			this.log("onReady data: ",data)
+		});
 	}
 
 	initBind(){
