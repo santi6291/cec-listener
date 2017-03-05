@@ -8,6 +8,16 @@ class websocketController extends Helper{
 		this._config = this.setConfigs();
 		this.server = this.initServer();
 	}
+
+	broadcast(content){
+		let msg = content;
+		
+		if (content !== null && typeof content === 'object') {
+			msg = JSON.stringify(content);
+		}
+	
+		return this.server.broadcast(msg);
+	}
 	
 	/**
 	 * Set Default Configurations
