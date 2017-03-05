@@ -14,6 +14,7 @@ class CECcontroller extends Helper {
 		this.cectypes = nodecec.CEC;
 		this.cec = new NodeCec('node-cec-monitor');
 		this.client;
+		this.device()
 		this.status = {
 			on: false,
 			source: 0,
@@ -49,16 +50,18 @@ class CECcontroller extends Helper {
 		this.log('onReady');
 		// @TODO
 		// send scan and get hdmi names
-		let response  = this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
+		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 		// response.on('data')
 		this.cec.on('line', (line)=>{
-			this.log('data',line.toString())
+			let line = this.cec.processTraffic(line.toString());
+
+			this.log(line)
 		})
 		setTimeout(()=>{
 			this.log('setTimeout')
 			this.cec.send('scan');
 		}, 2000);
-		
+
 		// this.cec.client.stdout.on('data', (result)=>{
 		// 	this.log('data',result.toString())
 		// });
