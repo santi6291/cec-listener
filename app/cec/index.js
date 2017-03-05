@@ -3,7 +3,8 @@ require('dotenv').config();
 const wsCtrl = require('./lib/ws-controller');
 const cecCtrl = require('./lib/cec-controller');
 
-const wsServer = require('./lib/ws-server');
+// Handle client request for cec command
+wsCtrl.on('onConnectionMessage', (message)=>wsCtrl.server.broadcastUTF(message.utf8Data));
 
 // http server, nedded for websocket
 const server = http.createServer((request, response)=>wsServer.handleHttpResponse(request, response, process.env.WS_PORT));
