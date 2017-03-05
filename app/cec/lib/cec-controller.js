@@ -50,8 +50,9 @@ class CECcontroller extends Helper {
 		let response  = this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 		setTimeout(()=>{
 			this.log('setTimeout')
-			this.cec.client.stdin.write('scan');
+			this.cec.send('scan');
 		}, 2000);
+		
 		this.cec.client.stdout.on('data', (result)=>{
 			this.log(result.toString())
 		});
