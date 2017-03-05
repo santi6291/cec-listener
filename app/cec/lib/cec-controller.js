@@ -53,9 +53,9 @@ class CECcontroller extends Helper {
 		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 		// response.on('data')
 		this.cec.on('line', (line)=>{
-			let line = this.cec.processTraffic(line.toString());
+			let traffic = this.cec.processTraffic(line.toString());
 
-			this.log(line)
+			this.log(traffic)
 		})
 		setTimeout(()=>{
 			this.log('setTimeout')
