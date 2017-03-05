@@ -11,6 +11,9 @@ wsCtrl.on('onConnectionAccept', ()=>{
 // Handle client request for cec command
 wsCtrl.on('onConnectionMessage', (message)=>{
 	wsCtrl.log('onConnectionMessage')
+	if (message.utf8Data == 'toggle-power') {
+		cecCtrl.eventStandby()
+	}
 	wsCtrl.broadcast(message.utf8Data);
 });
 

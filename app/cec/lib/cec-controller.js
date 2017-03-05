@@ -82,5 +82,15 @@ class CECcontroller extends Helper {
 		this.log('onRoutingChange');
 		this.emit('routeChange', fromSource, toSource)
 	}
+
+
+	eventStandby(){
+		if (this.status.on) {
+			return true
+		}
+		
+		this.client.sendCommand(0xff, this.cectypes.Opcode.STANDBY);
+		// :36
+	}
 }
 module.exports = new CECcontroller();
