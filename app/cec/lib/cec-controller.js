@@ -53,9 +53,8 @@ class CECcontroller extends Helper {
 	initBind(){
 		this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.onReportPowerStatus(packet, status));
 		this.cec.on('ACTIVE_SOURCE', (packet, source) => this.onActiveSource(packet, source));
-		this.cec.on('STANDBY', (packet, source) => this.activeSource(packet, source));
-
-		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource));
+		this.cec.on('STANDBY', (packet, source) => this.onStandby(packet, source));
+		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.onRoutingChange(fromSource, toSource));
 	}
 
 	onStandby(packet, source){
@@ -74,6 +73,9 @@ class CECcontroller extends Helper {
 		this.log('REPORT_POWER_STATUS', packet)
 		this.status.on = !Boolean(status);
 		this.emit('reportPowerStatus');
+	}
+	onRoutingChange(fromSource, toSource){
+		this.emit('routeChange', fromSource, toSource)
 	}
 }
 module.exports = new CECcontroller();
