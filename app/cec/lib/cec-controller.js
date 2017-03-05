@@ -51,6 +51,7 @@ class CECcontroller extends Helper {
 	}
 
 	powerStatusCallback(packet, status){
+		this.log('REPORT_POWER_STATUS')
 		var keys = Object.keys( this.cectypes.PowerStatus );
 
 		for (var i = keys.length - 1; i >= 0; i--) {
@@ -62,7 +63,10 @@ class CECcontroller extends Helper {
 	}
 	
 	routeChange(){
-		this.cec.on( 'ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource) );
+		this.cec.on( 'ROUTING_CHANGE', (packet, fromSource, toSource)=>{
+			this.log('ROUTING_CHANGE')
+			this.emit('routeChange', fromSource, toSource)
+		});
 	}
 }
 module.exports = new CECcontroller();
