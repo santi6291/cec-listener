@@ -35,7 +35,7 @@ class CECcontroller extends Helper {
 		// -d8 = set log level to 8 (=TRAFFIC) (-d 8)
 		// -br = logical address set to `recording device`
 		// this.cec.start('cec-client', '-m', '-d', '8', '-b', 'r')
-		this.cecSingle.start('cec-client', '-s', '-d', '1')
+		this.cecSingle.start('cec-client', '-m', '-s', '-d', '1')
 	}
 	
 	// -------------------------------------------------------------------------- //
