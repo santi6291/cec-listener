@@ -39,18 +39,20 @@ class CECcontroller extends Helper {
 
 	killCec(){
 		if ( this.cec != null ) {
-		  this.cec.stop();
+			this.log('killCec');
+			this.cec.stop();
 		}
 		process.exit();
 	}
 
 	onReady(client){
-		this.log( ' -- READY -- ' );
+		this.log('onReady');
 		this.client = client;
 		this.client.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 	}
 
 	initBind(){
+		this.log('initBind');
 		this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.onReportPowerStatus(packet, status));
 		this.cec.on('ACTIVE_SOURCE', (packet, source) => this.onActiveSource(packet, source));
 		this.cec.on('STANDBY', (packet, source) => this.onStandby(packet, source));
@@ -58,23 +60,26 @@ class CECcontroller extends Helper {
 	}
 
 	onStandby(packet, source){
-		this.log('onStandby', 'this.status.on', this.status.on)
+		this.log('onStandby');
 		this.status.on = false;
 		this.emit('standby', packet, source);
 	}
 
 	onActiveSource(packet, source){
-		this.log('onActiveSource', 'this.status.on', this.status.on)
+		this.log('onActiveSource');
 		this.status.on = true;
 		this.emit('activeSource', packet, source);
 	}
 
 	onReportPowerStatus(packet, status){
-		this.log('REPORT_POWER_STATUS', packet)
+		this.log('onReportPowerStatus');
 		this.status.on = !Boolean(status);
+
 		this.emit('reportPowerStatus');
 	}
+	
 	onRoutingChange(fromSource, toSource){
+		this.log('onRoutingChange');
 		this.emit('routeChange', fromSource, toSource)
 	}
 }

@@ -13,6 +13,7 @@ class websocketController extends Helper{
 	 * Set Default Configurations
 	 */
 	setConfigs(){
+		this.log('setConfigs');
 		let configs = {};
 		
 		configs.port = process.env.WS_PORT;
@@ -36,6 +37,7 @@ class websocketController extends Helper{
 	 * @return http Server
 	 */
 	makeHttpServer(port){
+		this.log('makeHttpServer on', port);
 		const server = http.createServer(this.handleHttpResponse);
 		server.listen(port, ()=>this.log(`listening ws://localhost:${port}`));
 		return server
@@ -47,13 +49,14 @@ class websocketController extends Helper{
 	 * @param  {Object} response
 	 * @return {Response.end}
 	 */
-	handleHttpResponse(request, response){	
-		this.log(`Received request for ${request.url}`)
+	handleHttpResponse(request, response){
+		this.log('handleHttpResponse', `Received ${request.url}`)
 		response.writeHead(404);
 		return response.end();
 	}
 
 	initServer(){
+		this.log('initServer');
 		this.server =  new wsServer(this._config.ws);
 		return this.server.on('request', (request)=>this.wsRequest(request))
 	}
@@ -75,20 +78,19 @@ class websocketController extends Helper{
 	}
 
 	originIsAllowed(origin){
+		this.log('wsRequest');
 		// put logic here to detect whether the specified origin is allowed. 
 		return true;
 	}
 
 	rejectRequest(request){
-		// Make sure we only accept requests from an allowed origin 
-		request.reject();
 		this.log(`Connection ${request.origin} rejected.`)
-		return;
+		// Make sure we only accept requests from an allowed origin 
+		return request.reject();
 	}
 	
 	onClose(reasonCode, description, connection){
-		this.log(`Peer ${connection.remoteAddress} disconnected.`)
-		// this.connection = 
+		this.log(`disconnected: ${connection.remoteAddress}`);
 	}
 }
 
