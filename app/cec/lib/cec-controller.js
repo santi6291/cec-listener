@@ -86,7 +86,7 @@ class CECcontroller extends Helper {
 
 	togglePower(){
 		this.log('togglePower');
-		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.POWER_ON_FUNCTION;
+		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.IMAGE_VIEW_ON;
 		console.log(command)
 		return this.client.sendCommand(0xff, command);
 	}
