@@ -1,5 +1,6 @@
 const Helper = require('../../shared');
-
+// cec types
+// node-cec/lib/lib/cectypes.js
 class CECcontroller extends Helper {
 	// -------------------------------------------------------------------------- //
 	// Example: basic.js
