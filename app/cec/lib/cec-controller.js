@@ -14,6 +14,10 @@ class CECcontroller extends Helper {
 		this.cectypes = nodecec.CEC;
 		this.cec = new NodeCec( 'node-cec-monitor' );
 		this.client;
+		this.status = {
+			on: false,
+			source: 0,
+		}
 	
 		// -------------------------------------------------------------------------- //
 		//- CEC EVENT HANDLING
