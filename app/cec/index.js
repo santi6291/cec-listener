@@ -23,11 +23,16 @@ cecCtrl.on('routeChange', (fromSource, toSource)=>{
 	wsCtrl.server.broadcastUTF(msg)
 });
 
-/* 
-@TODO maybe bind these event and execute whenever they happend
+ 
+// @TODO maybe bind these event and execute whenever they happend
 const OpcodeKeys = Object.keys(cecCtrl.cectypes.Opcode)
 for (let i=0; i < OpcodeKeys.length; i++) {
+	if (OpcodeKeys[i] == 'GIVE_PHYSICAL_ADDRESS') {
+		continue;
+	}
+
 	cecCtrl.cec.on( OpcodeKeys[i], function () {
+		cecCtrl.log(OpcodeKeys[i], arguments);
 		this.connection.sendUTF(OpcodeKeys[i]);
 	})
-}*/
+}
