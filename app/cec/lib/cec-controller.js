@@ -52,8 +52,8 @@ class CECcontroller extends Helper {
 
 	initBind(){
 		this.cec.on('REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
-		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource));
 		this.cec.on('ACTIVE_SOURCE', (packet, source) => this.powerStatusCallback(packet, source));
+		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.emit('routeChange', fromSource, toSource));
 	}
 
 	powerStatusCallback(packet, status){
@@ -62,7 +62,7 @@ class CECcontroller extends Helper {
 
 		for (var i = keys.length - 1; i >= 0; i--) {
 			if (this.cectypes.PowerStatus[keys[i]] == status) {
-				this.emit('powerStatus', keys[i])
+				this.status.on = (keys[i] == 'ON')?  true : false;
 				break;
 			}
 		}
