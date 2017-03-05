@@ -12,7 +12,12 @@ class CECcontroller extends Helper {
 		const NodeCec = nodecec.NodeCec;
 		
 		this.cectypes = nodecec.CEC;
+		
 		this.cec = new NodeCec('node-cec-monitor');
+		
+		this.cecSingle = new NodeCec('node-cec-monitor');
+		this.getDevices();
+
 		this.client;
 		// this.device = []
 		this.status = {
@@ -30,6 +35,7 @@ class CECcontroller extends Helper {
 		// -d8 = set log level to 8 (=TRAFFIC) (-d 8)
 		// -br = logical address set to `recording device`
 		this.cec.start('cec-client', '-m', '-d', '8', '-b', 'r')
+		this.cecSingle.start('cec-client', '-d', '1', '-s')
 	}
 	
 	// -------------------------------------------------------------------------- //
@@ -51,7 +57,6 @@ class CECcontroller extends Helper {
 		// @TODO
 		// send scan and get hdmi names
 		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
-		this.getDevices()
 
 		// this.cec.client.stdout.on('data', (result)=>{
 		// 	this.log('data',result.toString())
@@ -59,13 +64,13 @@ class CECcontroller extends Helper {
 	}
 
 	getDevices(){
-		this.log('getDevices')
+		this.log('getDevices');
+		this.cecSingle.start('cec-client', '-d', '1', '-s')
+		
+		this.cecSingle.on('ready', (client)=>this.cecSingle.send('scan'))
 
-		setTimeout(()=>this.cec.send('scan'), 0);
-		this.cec.on('line', (line)=>{
-			line.toString()
-
-			this.log(line.toString())
+		this.cecSingle.on('line', (line)=>{
+			this.log('cecSingle - ',line.toString())
 		})
 	}
 
