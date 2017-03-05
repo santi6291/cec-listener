@@ -33,6 +33,6 @@ for (let i=0; i < OpcodeKeys.length; i++) {
 
 	cecCtrl.cec.on( OpcodeKeys[i], function () {
 		cecCtrl.log(OpcodeKeys[i], arguments);
-		this.connection.sendUTF(OpcodeKeys[i]);
+		// this.connection.sendUTF(OpcodeKeys[i]);
 	})
 }
