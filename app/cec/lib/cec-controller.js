@@ -57,6 +57,11 @@ class CECcontroller extends Helper {
 		this.cec.on('ACTIVE_SOURCE', (packet, source) => this.onActiveSource(packet, source));
 		this.cec.on('STANDBY', (packet, source) => this.onStandby(packet, source));
 		this.cec.on('ROUTING_CHANGE', (packet, fromSource, toSource)=>this.onRoutingChange(fromSource, toSource));
+		this.cec.on('DEVICE_VENDOR_ID', (packet, fromSource, toSource)=>this.onDeviceVendorId(packet, source));
+	}
+
+	onDeviceVendorId(packet, source){
+		this.log('onDeviceVendorId', packet, source)
 	}
 
 	onStandby(packet, source){
@@ -83,6 +88,9 @@ class CECcontroller extends Helper {
 		this.emit('routeChange', fromSource, toSource)
 	}
 
+	eventHandler(eventName){
+		this.on('toggle-power', ()=>this.togglePower());
+	}
 
 	togglePower(){
 		this.log('togglePower');
