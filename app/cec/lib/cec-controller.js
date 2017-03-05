@@ -53,6 +53,8 @@ class CECcontroller extends Helper {
 
 		// scan devices every 30 minutes
 		this.scanInterval = setInterval(()=>this.cec.send('scan'), 1.8e+9);
+		// adding some delay as on ready is not accurate
+		setTimeout(()=>this.cec.send('scan'), 2000);
 	}
 
 	initBind(){
