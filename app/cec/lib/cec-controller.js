@@ -52,9 +52,9 @@ class CECcontroller extends Helper {
 			this.log('setTimeout')
 			this.cec.send('scan');
 		}, 2000);
-		
+
 		this.cec.client.stdout.on('data', (result)=>{
-			this.log(result.toString())
+			this.log('data',result.toString())
 		});
 	}
 
