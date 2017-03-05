@@ -15,5 +15,12 @@ cecCtrl.on('routeChange', (fromSource, toSource)=>{
 // broadcast power status
 cecCtrl.on('powerStatus', (status)=>wsCtrl.server.broadcastUTF(status));
 
-// handle request
-wsInstance.on('request', (request)=>wsServer.handleRequest(request))
+
+/* 
+@TODO maybe bind these event and execute whenever they happend
+const OpcodeKeys = Object.keys(cecCtrl.cectypes.Opcode)
+for (let i=0; i < OpcodeKeys.length; i++) {
+	cecCtrl.cec.on( OpcodeKeys[i], function () {
+		this.connection.sendUTF(OpcodeKeys[i]);
+	})
+}*/
