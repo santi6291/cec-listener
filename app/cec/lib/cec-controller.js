@@ -50,7 +50,7 @@ class CECcontroller extends Helper {
 		this.cec.on( 'REPORT_POWER_STATUS', (packet, status) => this.powerStatusCallback(packet, status));
 	}
 
-	powerStatusCallback(){
+	powerStatusCallback(packet, status){
 		var keys = Object.keys( this.cectypes.PowerStatus );
 
 		for (var i = keys.length - 1; i >= 0; i--) {
