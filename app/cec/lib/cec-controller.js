@@ -60,8 +60,8 @@ class CECcontroller extends Helper {
 
 	getDevices(){
 		this.log('getDevices')
-		
-		this.cec.send('scan');
+
+		setTimeout(()=>this.cec.send('scan'), 0);
 		this.cec.on('line', (line)=>{
 			line.toString()
 
