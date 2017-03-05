@@ -57,6 +57,7 @@ class CECcontroller extends Helper {
 	}
 
 	powerStatusCallback(packet, status){
+		this.log(packet)
 		this.status.on = !Boolean(status);
 	}
 }
