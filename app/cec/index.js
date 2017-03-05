@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-const WebSocketServer = require('websocket').server;
-const http = require('http');
+const wsCtrl = require('./lib/ws-controller');
+const cecCtrl = require('./lib/cec-controller');
 
 const wsServer = require('./lib/ws-server');
 
