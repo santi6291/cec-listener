@@ -52,7 +52,8 @@ cec.on( 'ROUTING_CHANGE', function(packet, fromSource, toSource) {
 const OpcodeKeys = Object.keys(CEC.Opcode)
 for (let i=0; i < OpcodeKeys.length; i++) {
 	cec.on( OpcodeKeys[i], function () {
-		console.log(OpcodeKeys[i], arguments);
+		let keyName = OpcodeKeys[i];
+		console.log(keyName, arguments);
 	})
 }
 
