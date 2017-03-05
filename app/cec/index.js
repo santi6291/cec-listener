@@ -26,14 +26,14 @@ cecCtrl.on('routeChange', (fromSource, toSource)=>{
 
  
 // @TODO maybe bind these event and execute whenever they happend
-const OpcodeKeys = Object.keys(cecCtrl.cectypes.Opcode)
+/*const OpcodeKeys = Object.keys(cecCtrl.cectypes.Opcode)
+const opCodeExclusion = ['GIVE_PHYSICAL_ADDRESS', ];
 for (let i=0; i < OpcodeKeys.length; i++) {
-	if (OpcodeKeys[i] == 'GIVE_PHYSICAL_ADDRESS') {
+	if (opCodeExclusion.indexOf(OpcodeKeys[i]) != -1) {
 		continue;
 	}
 
 	cecCtrl.cec.on( OpcodeKeys[i], function () {
 		cecCtrl.log(OpcodeKeys[i], arguments);
-		// this.connection.sendUTF(OpcodeKeys[i]);
 	})
-}
+}*/
