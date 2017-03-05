@@ -29,7 +29,8 @@ cecCtrl.on('routeChange', (fromSource, toSource)=>{
  
 // @TODO maybe bind these event and execute whenever they happend
 const OpcodeKeys = Object.keys(cecCtrl.cectypes.Opcode)
-const opCodeExclusion = ['GIVE_PHYSICAL_ADDRESS', ];
+// const opCodeExclusion = ['GIVE_PHYSICAL_ADDRESS'];
+const opCodeExclusion = [];
 for (let i=0; i < OpcodeKeys.length; i++) {
 	if (opCodeExclusion.indexOf(OpcodeKeys[i]) != -1) {
 		continue;
