@@ -7,9 +7,14 @@ const cecCtrl = require('./lib/cec-controller');
 wsCtrl.on('onConnectionAccept', ()=>{
 	wsCtrl.log('onConnectionAccept')
 	wsCtrl.server.broadcastUTF(JSON.stringify(cecCtrl.status))
-	// this.cectypes.LogicalAddress.TV
-	// this.client.sendCommand( 0xf0, this.cectypes.Opcode.REPORT_POWER_STATUS );
-	this.client.sendCommand('REPORT_POWER_STATUS');
+
+	cecCtrl.cec.once('REPORT_POWER_STATUS', (packet, status) => {
+		cecCtrl.log('REPORT_POWER_STATUS', 'once')
+	});
+	cecCtrl.cec.on('REPORT_POWER_STATUS', (packet, status) => {
+		cecCtrl.log('REPORT_POWER_STATUS', 'on')
+	});
+	// this.client.sendCommand('REPORT_POWER_STATUS');
 });
 
 // Handle client request for cec command
