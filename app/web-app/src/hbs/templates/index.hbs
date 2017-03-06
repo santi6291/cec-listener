@@ -13,23 +13,25 @@
 <body>
 	<div class="row">
 		<div class="column small-12">
-			<button class="button large expanded" data-cec-action="toggle-power" data-cec-get="power-status">Power</button>
+			<button class="button large expanded" data-js-hook="power-button">
+				Power <span class="power-status" data-js-hook="power-status"></span>
+			</button>
 		</div>
 
 		<div class="column small-6">
-			<button class="button large expanded" data-cec-action="set-hdmi-1">HDMI 1</button>
+			<button class="button large expanded" data-js-hook="hdmi" data-hdmir-address="1.0.0.0">HDMI 1</button>
 		</div>
 
 		<div class="column small-6">
-			<button class="button large expanded" data-cec-action="set-hdmi-2">HDMI 2</button>
+			<button class="button large expanded" data-js-hook="hdmi" data-hdmir-address="2.0.0.0">HDMI 2</button>
 		</div>
 
 		<div class="column small-6">
-			<button class="button large expanded" data-cec-action="set-hdmi-3">HDMI 3</button>
+			<button class="button large expanded" data-js-hook="hdmi" data-hdmir-address="3.0.0.0">HDMI 3</button>
 		</div>
 
 		<div class="column small-6">
-			<button class="button large expanded" data-cec-action="set-hdmi-4">HDMI 4</button>
+			<button class="button large expanded" data-js-hook="hdmi" data-hdmir-address="4.0.0.0">HDMI 4</button>
 		</div>
 	</div>
 </body>
