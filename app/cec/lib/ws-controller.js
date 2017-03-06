@@ -76,7 +76,7 @@ class websocketController extends Helper{
 		this.emit('onConnectionAccept')
 
 		// Handle connection message
-		connection.on('message', (message) => this.emit('onConnectionMessage', message));
+		connection.on('message', (message) => this.emit('onConnectionMessage', message.utf8Data));
 		
 		// handle when connection disconnected 
 		connection.on('close', (reasonCode, description) => this.onClose(reasonCode, description, connection));
