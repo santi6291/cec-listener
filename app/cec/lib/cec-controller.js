@@ -149,8 +149,8 @@ class CECcontroller extends Helper {
 	}
 
 	activeSource(newSource){
-		let source = (Number(newSource)*10).toString(16);
-		return this.cec.sendCommand(0xf0, command, this.cectypes.Opcode.ACTIVE_SOURCE, source, 0x00);
+		let source = Number(`0x${newSource}0`)
+		return this.cec.sendCommand(0xff, this.cectypes.Opcode.ACTIVE_SOURCE, source, 0x00);
 	}
 }
 module.exports = new CECcontroller();
