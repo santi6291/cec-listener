@@ -1,60 +1,19 @@
-class buttonActions{
-	constructor(){
-		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-		this.eventType = isMobile ? 'touchend' : 'click';
-		this.clientURL = `ws://casadev.net:8000`;
-		this.clientProtocol = 'cec-protocol';
-		
-		this.buttons = document.querySelectorAll('button');
-		this.client = new WebSocket(this.clientURL, this.clientProtocol);
+const domCtrl = require('./modules/dom-controller');
+const wsConnection = require('./modules/ws-connection');
 
-		this.client.onmessage = this.onMessage;
-		this.client.onopen = this.onOpen;
-		this.bindButtons();
-	}
+domCtrl.onClick('hdmi', (e)=>{
+	console.log(e.target)
+})
 
-	onMessage(event){
-		let data;
-		try{
-			data = JSON.parse(event.data)
-		}catch(e){
-			data = event.data;
-		}
+domCtrl.onClick('power-button', (e)=>{
+	wsConnection.cecAction('toggle-power');	
+	console.log(e.target)
+})
 
-		console.log('onMessage', data)
-	}
+wsConnection.onMessage('status', (status)=>{
+	domCtrl.updateStatus(status);
+});
 
-	onOpen(event){
-		let data;
-		try{
-			data = JSON.parse(event.data)
-		}catch(e){
-			data = event.data;
-		}
-
-		console.log('onOpen', data)
-	}
-
-	bindButtons(){
-		// console.log(this.buttons)
-		this.buttons.forEach((el, index)=>this.buttonLoop(el, index));
-	}
-
-	buttonLoop(el, index){
-		el.addEventListener(this.eventType, (e)=>this.buttonClick(e));
-	}
-
-	buttonClick(e){
-		this.cecAction(e.target.dataset.cecAction);
-	}
-
-	createMessage(action, type){
-		return JSON.stringify({action, type});
-	}
-
-	cecAction(action){
-		let msg = this.createMessage(action, 'action')
-		this.client.send(action)
-	}
-}
-new buttonActions()
+wsConnection.onMessage('routeChange', (data)=>{
+	console.log(data)
+});
