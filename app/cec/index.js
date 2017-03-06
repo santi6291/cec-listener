@@ -5,7 +5,7 @@ const cecCtrl = require('./lib/cec-controller');
 
 // Connection trigger cec command
 wsCtrl.on('onConnectionAccept', ()=>wsCtrl.broadcast('status', cecCtrl.status));
-wsCtrl.on('onConnectionMessage', (message)=>cecCtrl.emit(message.utf8Data));
+wsCtrl.on('onConnectionMessage', (message)=>cecCtrl.emit(message.type, message.data));
 
 // CEC event brodcast to connections
 cecCtrl.on('statusUpdate', ()=>wsCtrl.broadcast('status',cecCtrl.status));
