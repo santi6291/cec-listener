@@ -149,7 +149,7 @@ class CECcontroller extends Helper {
 	}
 
 	activeSource(newSource){
-		source = (Number(newSource)*10).toString(16);
+		let source = (Number(newSource)*10).toString(16);
 		return this.cec.sendCommand(0xf0, command, this.cectypes.Opcode.ACTIVE_SOURCE, source, 0x00);
 	}
 }
