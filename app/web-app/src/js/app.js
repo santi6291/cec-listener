@@ -2,7 +2,7 @@ const domCtrl = require('./modules/dom-controller');
 const wsConnection = require('./modules/ws-connection');
 
 domCtrl.onClick('hdmi', (e)=>{
-	wsConnection.cecAction('activeSource', `${e.target.dataset.hdmiAddress}.0.0.0`);
+	wsConnection.cecAction('activeSource', e.target.dataset.hdmiAddress);
 })
 
 domCtrl.onClick('power-button', (e)=>{
