@@ -108,12 +108,14 @@ class CECcontroller extends Helper {
 		this.log('onStandby');
 		this.status.on = false;
 		this.emit('standby', packet, source);
+		this.emit('statusUpdate');
 	}
 
 	onActiveSource(packet, source){
 		this.log('onActiveSource');
 		this.status.on = true;
 		this.emit('activeSource', packet, source);
+		this.emit('statusUpdate');
 	}
 
 	onReportPowerStatus(packet, status){
@@ -121,11 +123,13 @@ class CECcontroller extends Helper {
 		this.status.on = !Boolean(status);
 
 		this.emit('reportPowerStatus');
+		this.emit('statusUpdate');
 	}
 	
 	onRoutingChange(fromSource, toSource){
 		this.log('onRoutingChange');
 		this.emit('routeChange', fromSource, toSource)
+		this.emit('statusUpdate');
 	}
 	
 	handleAction(msg){
