@@ -25,12 +25,12 @@ class wsConnection{
 		this.callbacks[msg.type](msg.data)
 	}
 
-	createMessage(type, data){
-		return JSON.stringify({type, data});
+	createMessage(action, data){
+		return JSON.stringify({action, data});
 	}
 
-	cecAction(type, data){
-		let msg = this.createMessage(type, data)
+	cecAction(action, data){
+		let msg = this.createMessage(action, data)
 		this.client.send(msg)
 	}
 }
