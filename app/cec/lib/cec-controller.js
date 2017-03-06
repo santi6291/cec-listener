@@ -50,6 +50,7 @@ class CECcontroller extends Helper {
 		this.cec.sendCommand( 0xf0, this.cectypes.Opcode.GIVE_DEVICE_POWER_STATUS );
 		
 		this.initBind();
+		this.eventHandler();
 
 		// scan devices every 30 minutes
 		this.scanInterval = setInterval(()=>this.cec.send('scan'), 1.8e+9);
@@ -128,12 +129,12 @@ class CECcontroller extends Helper {
 		this.emit('routeChange', fromSource, toSource)
 	}
 
-	eventHandler(eventName){
-		this.log('eventName', eventName);
-		this.on('toggle-power', ()=>this.togglePower());
+	eventHandler(){
+		this.on('toggle-power', (msg)=>this.togglePower());
 	}
 
 	togglePower(){
+		this.log('togglePower')
 		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.IMAGE_VIEW_ON;
 		return this.cec.sendCommand(0xf0, command);
 	}
