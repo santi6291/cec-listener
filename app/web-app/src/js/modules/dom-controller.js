@@ -5,8 +5,8 @@ class DOMcontroller{
 		this.buttons = document.querySelectorAll('button[data-js-hook]');
 	}
 
-	hook(hookName, single=false){
-		return document.querySelectorAll(`[data-js-hook~="${hookName}"]`)
+	hook(hookName, attName='data-js-hook'){
+		return document.querySelectorAll(`[${attName}~="${hookName}"]`)
 	}
 
 	onClick(hook, cb){
@@ -29,7 +29,16 @@ class DOMcontroller{
 	}
 	
 	updateDevices(devices){
-
+		devices.forEach((device, index)=>this.updateDevice(device, index))
 	}
+
+	updateDevice(device, index){
+		let hdmiAddr = device.address.split('.')[0];
+		let el = this.hook(hdmiAddr, 'data-hdmi-address')[0];
+		if (el) {
+			el.innerHTML = device.osd_string
+		}
+	}
+
 }
 module.exports = new DOMcontroller()
