@@ -1,0 +1,38 @@
+class wsConnection{
+	constructor(){
+		this.clientURL = 'ws://casadev.net:8000';
+		this.clientProtocol = 'cec-protocol';
+	
+		this.client = new WebSocket(this.clientURL, this.clientProtocol);
+		this.callbacks = {};
+		this.client.addEventListener('message', (e)=>this.receiveMessage(e));
+	}
+	
+	parseData(data){
+		try{
+			return JSON.parse(data)
+		}catch(e){
+			return undefined;
+		}
+	}
+
+	onMessage(type, cb){
+		this.callbacks[type] = cb;
+	}
+
+	receiveMessage(event){
+		let msg = this.parseData(event.data)
+		this.callbacks[msg.type](msg.data)
+	}
+
+	createMessage(type, data){
+		return JSON.stringify({type, data});
+	}
+
+	cecAction(type, data){
+		let msg = this.createMessage(type, data)
+		this.client.send(msg)
+	}
+}
+
+module.exports = new wsConnection()
