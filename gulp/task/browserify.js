@@ -27,7 +27,10 @@ module.exports = ()=>{
     let b = browserify(bConfig.entries);
     return b.transform("babelify", {presets: ["es2015"]})
         .bundle()
-            .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+            .on('error', function (err){
+                gutil.log('Browserify Error', err.stack)
+                this.emit("end");
+            })
         .pipe(source('app.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init())
