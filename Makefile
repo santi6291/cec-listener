@@ -19,14 +19,10 @@ server-dev:
 	# init nodemon
 	@${_bin}nodemon index.js
 
-deploy-pull:
-	ssh pi@192.168.1.4 'cd tv-remote && git pull origin master';
-
-deploy-build:
-	ssh pi@192.168.1.4 'cd tv-remote && make gulp-build';
-
-deploy: deploy-pull deploy-build
-	
+deploy: 
+	ssh pi@192.168.1.4 'cd tv-remote && git checkout .'
+	ssh pi@192.168.1.4 'cd tv-remote && git pull origin master'
+	ssh pi@192.168.1.4 'cd tv-remote && make gulp-build'
 
 ############################
 # CEC install commands
