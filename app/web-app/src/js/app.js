@@ -6,7 +6,7 @@ domCtrl.onClick('hdmi', (e)=>{
 })
 
 domCtrl.onClick('power-button', (e)=>{
-	wsConnection.cecAction('toggle-power');	
+	wsConnection.cecAction('togglePower');	
 	console.log(e.target)
 })
 
