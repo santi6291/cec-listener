@@ -147,5 +147,10 @@ class CECcontroller extends Helper {
 		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.IMAGE_VIEW_ON;
 		return this.cec.sendCommand(0xf0, command);
 	}
+
+	activeSource(newSource){
+		source = newSource*10.toString(16);
+		return this.cec.sendCommand(0xf0, command, this.cectypes.Opcode.ACTIVE_SOURCE, source, 0x00);
+	}
 }
 module.exports = new CECcontroller();
