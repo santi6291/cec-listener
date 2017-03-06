@@ -3,28 +3,13 @@ require('dotenv').config();
 const wsCtrl = require('./lib/ws-controller');
 const cecCtrl = require('./lib/cec-controller');
 
-wsCtrl.on('onConnectionAccept', ()=>{
-	wsCtrl.log('onConnectionAccept');
-	wsCtrl.broadcast('status',cecCtrl.status);
-});
+// Connection trigger cec command
+wsCtrl.on('onConnectionAccept', ()=>wsCtrl.broadcast('status', cecCtrl.status));
+wsCtrl.on('onConnectionMessage', (message)=>cecCtrl.emit(message.utf8Data));
 
-// Handle client request for cec command
-wsCtrl.on('onConnectionMessage', (message)=>{
-	wsCtrl.log('onConnectionMessage')
-	cecCtrl.emit(message.utf8Data);
-});
-
-cecCtrl.on('statusUpdate', ()=>{
-	cecCtrl.log('statusUpdate')
-	wsCtrl.broadcast('status',cecCtrl.status);
-})
-
-// broadcast route change
-cecCtrl.on('routeChange', (fromSource, toSource)=>{
-	cecCtrl.log('routeChange');
-	let msg = JSON.stringify({fromSource, toSource});
-	wsCtrl.broadcast('routeChange', msg);
-});
+// CEC event brodcast to connections
+cecCtrl.on('statusUpdate', ()=>wsCtrl.broadcast('status',cecCtrl.status));
+cecCtrl.on('routeChange', (fromSource, toSource)=>wsCtrl.broadcast('routeChange', {fromSource, toSource}));
 
  
 // @TODO maybe bind these event and execute whenever they happend

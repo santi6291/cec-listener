@@ -129,11 +129,11 @@ class CECcontroller extends Helper {
 	}
 
 	eventHandler(eventName){
+		this.log('eventName', eventName);
 		this.on('toggle-power', ()=>this.togglePower());
 	}
 
 	togglePower(){
-		this.log('togglePower');
 		let command = (this.status.on) ? this.cectypes.Opcode.STANDBY : this.cectypes.Opcode.IMAGE_VIEW_ON;
 		return this.cec.sendCommand(0xf0, command);
 	}
