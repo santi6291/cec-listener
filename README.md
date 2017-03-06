@@ -14,4 +14,6 @@ Currently only tested on Raspberry pi, but should work on any device that [Pulse
 
 # Roadmap
 - Play with volume and channel up/down
--   
+- Toggle power of other HDMI devices
+- add more options like numbers control etc
+
