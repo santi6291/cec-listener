@@ -1,6 +1,6 @@
 class wsConnection{
 	constructor(){
-		this.clientURL = 'ws://casadev.net:8000';
+		this.clientURL = 'ws://cec.casadev.net';
 		this.clientProtocol = 'cec-protocol';
 	
 		this.client = new WebSocket(this.clientURL, this.clientProtocol);
