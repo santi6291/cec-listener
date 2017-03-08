@@ -10,9 +10,10 @@ class DOMcontroller{
 	}
 
 	onClick(hook, cb){
-		return this.hook(hook).forEach(
-			(el, index) => el.addEventListener(this.eventType, cb)
-		);
+		let nodeList = this.hook(hook)
+		for (let i=0; i < nodeList.length; i++) {
+			nodeList[i].addEventListener(this.eventType, cb)
+		}
 	}
 	
 	updateStatus(status){
